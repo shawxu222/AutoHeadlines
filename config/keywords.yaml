@@ -1,0 +1,178 @@
+categories:
+  AI与数字技术:
+    default_weight: 8
+    keywords:
+      - AI
+      - 人工智能
+      - 生成式AI
+      - generative AI
+      - 大模型
+      - LLM
+      - Agent
+      - AI agent
+      - 数据中心
+      - data center
+      - GPU
+      - 云计算
+      - cloud computing
+      - 主权AI
+      - sovereign AI
+      - 数字孪生
+      - digital twin
+      - 人工知能
+      - 生成AI
+      - 인공지능
+
+  半导体:
+    default_weight: 9
+    keywords:
+      - 半导体
+      - semiconductor
+      - 先进封装
+      - advanced packaging
+      - 芯粒
+      - chiplet
+      - EUV
+      - 2nm
+      - 1.4nm
+      - Rapidus
+      - TSMC
+      - Samsung
+      - SK hynix
+      - SiC
+      - GaN
+      - 半導体
+      - 반도체
+
+  生物医药:
+    default_weight: 8
+    keywords:
+      - iPS
+      - 再生医疗
+      - regenerative medicine
+      - AI创药
+      - AI drug discovery
+      - 细胞治疗
+      - cell therapy
+      - 基因编辑
+      - gene editing
+      - 医疗器械
+      - 医療機器
+      - medical device
+      - 临床试验
+      - clinical trial
+      - 数字医疗
+      - digital health
+      - バイオ
+      - 바이오
+
+  量子:
+    default_weight: 8
+    keywords:
+      - 量子计算
+      - quantum computing
+      - 量子通信
+      - quantum communication
+      - 量子传感
+      - quantum sensing
+      - 量子密码
+      - quantum cryptography
+      - qubit
+      - 量子
+      - 양자
+
+  能源与环境:
+    default_weight: 7
+    keywords:
+      - 核聚变
+      - fusion
+      - 氢能
+      - hydrogen
+      - 水素
+      - 氨燃料
+      - ammonia fuel
+      - CCS
+      - 碳中和
+      - carbon neutrality
+      - 储能
+      - energy storage
+      - 蓄電
+      - 蓄電池
+      - 钙钛矿
+      - perovskite
+      - 可降解塑料
+      - biodegradable plastic
+      - 洋上風力
+      - 風力発電
+      - 再生可能エネルギー
+
+  材料与制造:
+    default_weight: 7
+    keywords:
+      - 新材料
+      - advanced materials
+      - 机器人
+      - robotics
+      - robot
+      - 自动化
+      - automation
+      - 3D打印
+      - 3D printing
+      - CFRP
+      - 催化剂
+      - catalyst
+      - materials
+      - 材料
+      - 新素材
+      - 量産
+
+  科技政策:
+    default_weight: 8
+    keywords:
+      - 科技预算
+      - science budget
+      - strategic plan
+      - 战略
+      - 行动计划
+      - action plan
+      - 经济安全
+      - economic security
+      - R&D
+      - research and development
+      - 人才引进
+      - talent
+      - 科研基础设施
+      - research infrastructure
+      - 国际合作
+      - international cooperation
+      - policy
+      - 政策
+      - 研究開発
+      - 정책
+
+  产业动态:
+    default_weight: 7
+    keywords:
+      - 投资
+      - investment
+      - 收购
+      - acquisition
+      - 并购
+      - merger
+      - 量产
+      - 量産
+      - mass production
+      - 新工厂
+      - 新工場
+      - new fab
+      - 供应链
+      - サプライチェーン
+      - supply chain
+      - 出口管制
+      - export control
+      - 产业联盟
+      - consortium
+      - startup
+      - 投資
+      - 買収
+      - 인수

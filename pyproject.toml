@@ -1,0 +1,42 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "autoheadlines"
+version = "0.1.0"
+description = "Local workbench for collecting, reviewing, summarizing, and analyzing science and technology news."
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+authors = [{name = "AutoHeadlines contributors"}]
+dependencies = [
+  "requests>=2.31.0",
+  "beautifulsoup4>=4.12.0",
+  "feedparser>=6.0.11",
+  "pandas>=2.1.0",
+  "openpyxl>=3.1.0",
+  "python-docx>=1.1.0",
+  "python-dotenv>=1.0.0",
+  "PyYAML>=6.0.1",
+  "openai>=1.0.0",
+  "playwright>=1.44.0",
+  "streamlit>=1.35.0",
+  "Pillow>=10.0.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=7.4.0", "ruff>=0.6.0"]
+
+[project.scripts]
+autoheadlines = "src.main:main"
+
+[tool.setuptools.packages.find]
+include = ["src*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"

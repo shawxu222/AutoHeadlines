@@ -1,0 +1,488 @@
+sources:
+- name: Nikkei
+  base_url: https://www.nikkei.com/
+  country_region: Japan
+  language: ja
+  section_url: https://www.nikkei.com/
+  source_type: login_browser
+  requires_login: true
+  priority: 5
+  enabled: true
+  tags:
+  - AI
+  - semiconductor
+  - policy
+  - industry
+  - energy
+  - biotech
+  - economic_security
+  discovery_urls:
+  - https://www.nikkei.com/news/
+  - https://www.nikkei.com/
+  - https://www.nikkei.com/news/category/science/
+  - https://www.nikkei.com/science/
+  - https://www.nikkei.com/technology/
+  - https://www.nikkei.com/news/category/technology/
+  - https://www.nikkei.com/business/
+  - https://www.nikkei.com/news/category/business/
+  - https://www.nikkei.com/politics/
+  - https://www.nikkei.com/news/category/politics/
+  - https://www.nikkei.com/economy/
+  - https://www.nikkei.com/news/category/economy/
+  rate_limit_seconds: 5
+  max_articles_per_run: 30
+- name: Nikkei CrossTech
+  base_url: https://xtech.nikkei.com/
+  country_region: Japan
+  language: ja
+  section_url: https://xtech.nikkei.com/
+  source_type: login_browser
+  requires_login: true
+  priority: 4
+  enabled: false
+  tags:
+  - AI
+  - semiconductor
+  - robotics
+  - energy
+  - materials
+  - industry
+  discovery_urls:
+  - https://xtech.nikkei.com/
+  - https://xtech.nikkei.com/atcl/nxt/news/
+  rate_limit_seconds: 5
+  max_articles_per_run: 6
+- name: 客观日本
+  base_url: https://www.keguanjp.com/
+  country_region: Japan
+  language: zh
+  section_url: https://www.keguanjp.com/
+  source_type: html
+  requires_login: false
+  priority: 4
+  enabled: true
+  tags:
+  - Japan
+  - research
+  - policy
+  - AI
+  - semiconductor
+  - biotech
+  - energy
+  - materials
+  discovery_urls:
+  - https://www.keguanjp.com/
+  - https://www.keguanjp.com/kgjp_keji/
+  - https://www.keguanjp.com/kgjp_jish/
+  - https://www.keguanjp.com/kgjp_jiaoyu/
+  - https://www.keguanjp.com/kgjp_gongtong/
+  rate_limit_seconds: 1.5
+  max_articles_per_run: 6
+- name: Science Japan
+  base_url: https://sj.jst.go.jp/
+  country_region: Japan
+  language: ja
+  section_url: https://sj.jst.go.jp/index.html
+  source_type: html
+  requires_login: false
+  priority: 4
+  enabled: true
+  tags:
+  - research
+  - policy
+  - university
+  - biotech
+  - energy
+  - materials
+  - quantum
+  discovery_urls:
+  - https://sj.jst.go.jp/index.html
+  rate_limit_seconds: 1.5
+  max_articles_per_run: 6
+- name: EE Times Japan
+  base_url: https://eetimes.itmedia.co.jp/
+  country_region: Japan
+  language: ja
+  section_url: https://eetimes.itmedia.co.jp/
+  source_type: html
+  requires_login: false
+  priority: 4
+  enabled: true
+  tags:
+  - semiconductor
+  - electronics
+  - AI
+  - materials
+  - industry
+  discovery_urls:
+  - https://eetimes.itmedia.co.jp/
+  - https://eetimes.itmedia.co.jp/ee/subtop/domestic/index.html
+  - https://eetimes.itmedia.co.jp/ee/subtop/process_technology/index.html
+  rate_limit_seconds: 1.5
+  max_articles_per_run: 6
+- name: MEXT Japan
+  base_url: https://www.mext.go.jp/
+  country_region: Japan
+  language: ja
+  section_url: https://www.mext.go.jp/
+  source_type: official
+  requires_login: false
+  priority: 5
+  enabled: true
+  tags:
+  - policy
+  - R&D
+  - research_infrastructure
+  - talent
+  - education
+  discovery_urls:
+  - https://www.mext.go.jp/b_menu/houdou/index.htm
+  - https://www.mext.go.jp/b_menu/boshu/index.htm
+  - https://www.mext.go.jp/b_menu/houdou/2026/index.html
+  rate_limit_seconds: 2
+  max_articles_per_run: 15
+- name: METI Japan
+  base_url: https://www.meti.go.jp/
+  country_region: Japan
+  language: ja
+  section_url: https://www.meti.go.jp/press/index.html
+  source_type: official
+  requires_login: false
+  priority: 5
+  enabled: true
+  tags:
+  - policy
+  - industry
+  - semiconductor
+  - AI
+  - energy
+  - startup
+  - economic_security
+  discovery_urls:
+  - https://www.meti.go.jp/press/index.html
+  - https://www.meti.go.jp/policy/mono_info_service/joho/conference/semicon_digital.html
+  - https://www.meti.go.jp/policy/innovation_corp/start-ups/index.html
+  rate_limit_seconds: 2
+  max_articles_per_run: 15
+- name: NEDO Japan
+  base_url: https://www.nedo.go.jp/
+  country_region: Japan
+  language: ja
+  section_url: https://www.nedo.go.jp/news/index.html
+  source_type: official
+  requires_login: false
+  priority: 5
+  enabled: true
+  tags:
+  - policy
+  - R&D
+  - energy
+  - hydrogen
+  - materials
+  - robotics
+  - AI
+  - demonstration
+  discovery_urls:
+  - https://www.nedo.go.jp/news/index.html
+  - https://www.nedo.go.jp/koubo/index.html
+  rate_limit_seconds: 2
+  max_articles_per_run: 15
+- name: JST Japan
+  base_url: https://www.jst.go.jp/
+  country_region: Japan
+  language: ja
+  section_url: https://www.jst.go.jp/pr/
+  source_type: official
+  requires_login: false
+  priority: 5
+  enabled: true
+  tags:
+  - research
+  - policy
+  - R&D
+  - university
+  - AI
+  - quantum
+  - biotech
+  - materials
+  discovery_urls:
+  - https://www.jst.go.jp/pr/
+  rate_limit_seconds: 2
+  max_articles_per_run: 15
+- name: AMED Japan
+  base_url: https://www.amed.go.jp/
+  country_region: Japan
+  language: ja
+  section_url: https://www.amed.go.jp/news/index.html
+  source_type: official
+  requires_login: false
+  priority: 5
+  enabled: true
+  tags:
+  - policy
+  - R&D
+  - medical
+  - biotech
+  - drug_discovery
+  - regenerative_medicine
+  - medical_AI
+  - vaccine
+  discovery_urls:
+  - https://www.amed.go.jp/news/index.html
+  - https://www.amed.go.jp/koubo/index.html
+  rate_limit_seconds: 2
+  max_articles_per_run: 10
+- name: NICT Japan
+  base_url: https://www.nict.go.jp/
+  country_region: Japan
+  language: ja
+  section_url: https://www.nict.go.jp/press/
+  source_type: official
+  requires_login: false
+  priority: 5
+  enabled: true
+  tags:
+  - policy
+  - R&D
+  - AI
+  - 6G
+  - telecommunications
+  - cybersecurity
+  - quantum_communications
+  - space_communications
+  discovery_urls:
+  - https://www.nict.go.jp/press/
+  - https://www.nict.go.jp/
+  rate_limit_seconds: 2
+  max_articles_per_run: 10
+- name: QST Japan
+  base_url: https://www.qst.go.jp/
+  country_region: Japan
+  language: ja
+  section_url: https://www.qst.go.jp/site/press/
+  source_type: official
+  requires_login: false
+  priority: 5
+  enabled: true
+  tags:
+  - policy
+  - R&D
+  - quantum
+  - fusion
+  - materials
+  - medical
+  - radiation
+  discovery_urls:
+  - https://www.qst.go.jp/site/press/
+  rate_limit_seconds: 2
+  max_articles_per_run: 8
+- name: Cabinet Office SIP
+  base_url: https://www8.cao.go.jp/
+  country_region: Japan
+  language: ja
+  section_url: https://www8.cao.go.jp/cstp/gaiyo/sip/
+  source_type: official
+  requires_login: false
+  priority: 5
+  enabled: true
+  tags:
+  - policy
+  - national_strategy
+  - SIP
+  - innovation
+  - social_implementation
+  - R&D
+  discovery_urls:
+  - https://www8.cao.go.jp/cstp/gaiyo/sip/
+  rate_limit_seconds: 2
+  max_articles_per_run: 5
+- name: Cabinet Office Moonshot
+  base_url: https://www8.cao.go.jp/
+  country_region: Japan
+  language: ja
+  section_url: https://www8.cao.go.jp/cstp/moonshot/index.html
+  source_type: official
+  requires_login: false
+  priority: 5
+  enabled: true
+  tags:
+  - policy
+  - national_strategy
+  - moonshot
+  - disruptive_innovation
+  - AI
+  - quantum
+  - biotech
+  - fusion
+  discovery_urls:
+  - https://www8.cao.go.jp/cstp/moonshot/index.html
+  rate_limit_seconds: 2
+  max_articles_per_run: 5
+- name: Cabinet Office K Program
+  base_url: https://www8.cao.go.jp/
+  country_region: Japan
+  language: ja
+  section_url: https://www8.cao.go.jp/cstp/anzen_anshin/kprogram.html
+  source_type: official
+  requires_login: false
+  priority: 5
+  enabled: true
+  tags:
+  - policy
+  - national_strategy
+  - economic_security
+  - critical_technology
+  - supply_chain
+  - R&D
+  discovery_urls:
+  - https://www8.cao.go.jp/cstp/anzen_anshin/kprogram.html
+  rate_limit_seconds: 2
+  max_articles_per_run: 5
+- name: JAXA Japan
+  base_url: https://www.jaxa.jp/
+  country_region: Japan
+  language: ja
+  section_url: https://www.jaxa.jp/press/index_j.html
+  source_type: official
+  requires_login: false
+  priority: 5
+  enabled: true
+  tags:
+  - policy
+  - R&D
+  - space
+  - satellite
+  - launch_vehicle
+  - aerospace
+  - space_industry
+  discovery_urls:
+  - https://www.jaxa.jp/press/index_j.html
+  rate_limit_seconds: 2
+  max_articles_per_run: 10
+- name: Cabinet Office Japan CSTI
+  base_url: https://www8.cao.go.jp/
+  country_region: Japan
+  language: ja
+  section_url: https://www8.cao.go.jp/cstp/
+  source_type: official
+  requires_login: false
+  priority: 5
+  enabled: true
+  tags:
+  - policy
+  - science_policy
+  - innovation
+  - AI
+  - economic_security
+  discovery_urls:
+  - https://www8.cao.go.jp/cstp/
+  - https://www8.cao.go.jp/cstp/stmain.html
+  - https://www8.cao.go.jp/cstp/siryo/index.html
+  rate_limit_seconds: 2
+  max_articles_per_run: 15
+- name: Cabinet Secretariat Japan
+  base_url: https://www.cas.go.jp/
+  country_region: Japan
+  language: ja
+  section_url: https://www.cas.go.jp/
+  source_type: official
+  requires_login: false
+  priority: 5
+  enabled: true
+  tags:
+  - policy
+  - economic_security
+  - AI
+  - supply_chain
+  - strategy
+  discovery_urls:
+  - https://www.cas.go.jp/
+  rate_limit_seconds: 2
+  max_articles_per_run: 6
+- name: ChosunBiz Science
+  base_url: https://biz.chosun.com/
+  country_region: Korea
+  language: ko
+  section_url: https://biz.chosun.com/science-chosun/
+  source_type: html
+  requires_login: false
+  priority: 4
+  enabled: true
+  tags:
+  - Korea
+  - science
+  - technology
+  - biotech
+  - AI
+  - semiconductor
+  - energy
+  discovery_urls:
+  - https://biz.chosun.com/science-chosun/
+  - https://biz.chosun.com/science-chosun/science/
+  - https://biz.chosun.com/science-chosun/technology/
+  - https://biz.chosun.com/science-chosun/nature-environment/
+  - https://biz.chosun.com/it-science/
+  - https://biz.chosun.com/it-science/ict/
+  rate_limit_seconds: 1.5
+  max_articles_per_run: 15
+- name: Chosun Economy Science
+  base_url: https://www.chosun.com/
+  country_region: Korea
+  language: ko
+  section_url: https://www.chosun.com/economy/science/
+  source_type: html
+  requires_login: false
+  priority: 3
+  enabled: true
+  tags:
+  - Korea
+  - science
+  - technology
+  - biotech
+  - AI
+  - semiconductor
+  - energy
+  discovery_urls:
+  - https://www.chosun.com/economy/science/
+  - https://www.chosun.com/economy/tech_it/
+  - https://www.chosun.com/economy/industry-company/
+  rate_limit_seconds: 1.5
+  max_articles_per_run: 15
+- name: Yonhap News
+  base_url: https://www.yna.co.kr/
+  country_region: Korea
+  language: ko
+  section_url: https://www.yna.co.kr/industry/technology-science
+  source_type: html
+  requires_login: false
+  priority: 3
+  enabled: true
+  tags:
+  - Korea
+  - policy
+  - industry
+  - science
+  - AI
+  - semiconductor
+  discovery_urls:
+  - https://www.yna.co.kr/industry/technology-science
+  - https://www.yna.co.kr/industry/electronics
+  - https://www.yna.co.kr/industry/bioindustry-health
+  - https://www.yna.co.kr/industry/all
+  rate_limit_seconds: 1.5
+  max_articles_per_run: 15
+- name: Manual Import
+  base_url: data/input/manual_news.xlsx
+  country_region: Global
+  language: mixed
+  section_url: data/input/manual_news.xlsx
+  source_type: manual
+  requires_login: false
+  priority: 3
+  enabled: true
+  tags:
+  - manual
+  discovery_urls:
+  - data/input/manual_news.xlsx
+  rate_limit_seconds: 0
+  max_articles_per_run: 100

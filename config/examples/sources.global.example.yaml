@@ -1,0 +1,45 @@
+sources:
+  - name: Manual Import
+    country_region: Global
+    language: en
+    section_url: data/input/manual_news.xlsx
+    source_type: manual
+    requires_login: false
+    priority: 3
+    enabled: true
+    tags:
+      - science
+      - technology
+
+  - name: Example Science RSS
+    country_region: Global
+    language: en
+    section_url: https://example.com/science.xml
+    source_type: rss
+    requires_login: false
+    priority: 3
+    enabled: false
+    tags:
+      - science
+      - research
+
+  - name: Example Configurable HTML Source
+    country_region: Global
+    language: en
+    base_url: https://example.com
+    section_url: https://example.com/science
+    discovery_urls:
+      - https://example.com/science
+    source_type: html
+    requires_login: false
+    priority: 3
+    enabled: false
+    tags:
+      - science
+      - technology
+    link_selectors:
+      - article a[href]
+    include_url_patterns:
+      - ^https?://example\.com/science/articles/
+    exclude_url_patterns:
+      - /about/

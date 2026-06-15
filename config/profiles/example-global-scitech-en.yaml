@@ -1,0 +1,27 @@
+id: example-global-scitech-en
+name: Global science and technology digest (English example)
+description: Example profile showing how to adapt AutoHeadlines for another region and output language.
+
+sources_file: config/examples/sources.global.example.yaml
+keywords_file: config/keywords.yaml
+
+date_window:
+  timezone_label: local time
+  start_hour: 8
+  normal_lookback_days: 1
+  monday_lookback_days: 3
+
+scoring:
+  preferred_regions: []
+  require_preferred_region: false
+  region_terms: []
+
+summary:
+  output_language: en
+  require_simplified_chinese: false
+  max_summary_chars: 1200
+  prompt_file: prompts/digest_prompt_en.md
+
+output:
+  digest_title_template: "Daily Science and Technology Digest {date}:"
+  word_font: Arial

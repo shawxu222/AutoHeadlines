@@ -1,0 +1,30 @@
+id: japan-korea-scitech-zh
+name: Japan and Korea science and technology digest (Chinese)
+description: Built-in profile that preserves the original AutoHeadlines workflow.
+
+sources_file: config/sources.yaml
+keywords_file: config/keywords.yaml
+
+date_window:
+  timezone_label: Japan time
+  start_hour: 10
+  normal_lookback_days: 1
+  monday_lookback_days: 3
+
+scoring:
+  preferred_regions:
+    - Japan
+    - Korea
+    - South Korea
+  require_preferred_region: true
+  region_terms: []
+
+summary:
+  output_language: zh-CN
+  require_simplified_chinese: true
+  max_summary_chars: 260
+  prompt_file: prompts/digest_prompt.md
+
+output:
+  digest_title_template: "每日科技要闻报送摘要{date}："
+  word_font: Microsoft YaHei
