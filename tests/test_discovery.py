@@ -106,6 +106,31 @@ def test_discovery_urls_support_run_date_templates() -> None:
     ]
 
 
+def test_discovered_rows_strip_government_session_ids() -> None:
+    row = discovery._discovered_row(  # noqa: SLF001
+        NewsSource(
+            name="MSIT Korea Official",
+            country_region="Korea",
+            language="en",
+            section_url=(
+                "https://www.msit.go.kr/eng/bbs/list.do?mId=4&mPid=2&sCode=eng"
+            ),
+            source_type="official",
+            requires_login=False,
+            priority=5,
+        ),
+        (
+            "https://www.msit.go.kr/eng/bbs/view.do;jsessionid=ABC123"
+            "?sCode=eng&nttSeqNo=1264"
+        ),
+        "AI Basic Act",
+    )
+
+    assert row["url"] == (
+        "https://www.msit.go.kr/eng/bbs/view.do?sCode=eng&nttSeqNo=1264"
+    )
+
+
 def test_new_official_source_dates_are_parsed_from_urls() -> None:
     assert discovery._date_from_url(  # noqa: SLF001
         "https://www.amed.go.jp/news/release_20260609.html"

@@ -25,6 +25,16 @@ def test_normalize_reported_url_removes_tracking_noise() -> None:
     )
 
 
+def test_normalize_reported_url_removes_jsessionid() -> None:
+    assert (
+        normalize_reported_url(
+            "https://www.msit.go.kr/eng/bbs/view.do;jsessionid=ABC123"
+            "?sCode=eng&nttSeqNo=1264"
+        )
+        == "https://www.msit.go.kr/eng/bbs/view.do?sCode=eng&nttSeqNo=1264"
+    )
+
+
 def test_load_reported_urls_only_uses_previous_final_digests(
     tmp_path: Path, monkeypatch
 ) -> None:

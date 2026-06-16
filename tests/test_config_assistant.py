@@ -9,7 +9,7 @@ from src.llm.config_assistant import (
 
 class FakeClient:
     def generate_json(self, system_prompt, user_payload):  # noqa: ANN001
-        assert "AutoHeadlines" in system_prompt
+        assert "XAutoHeadlines" in system_prompt
         assert user_payload["conversation"][-1]["content"] == "推荐欧美科技网站"
         return {
             "answer": "可以先从官方研究机构开始。",

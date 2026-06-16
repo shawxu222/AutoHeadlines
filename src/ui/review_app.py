@@ -84,7 +84,7 @@ OUTPUT_DIR = DATA_ROOT / "output"
 SETTINGS_PATH = PRIVATE_SETTINGS_PATH
 SOURCES_PATH = active_sources_path()
 ENV_PATH = PROJECT_ROOT / ".env"
-APP_ICON_PATH = PROJECT_ROOT / "assets" / "icons" / "AutoHeadlines.png"
+APP_ICON_PATH = PROJECT_ROOT / "assets" / "icons" / "XAutoHeadlines.png"
 MIN_CANDIDATE_TEXT_CHARS = 250
 MODEL_OPTIONS = [
     "gpt5.5thinking",
@@ -120,7 +120,7 @@ WORKSPACE_VIEWS = ["今日工作台", "AI 配置助手", "被采纳标记", "数
 
 def main() -> None:
     st.set_page_config(
-        page_title="AutoHeadlines",
+        page_title="XAutoHeadlines",
         page_icon=Image.open(APP_ICON_PATH),
         layout="wide",
         initial_sidebar_state="expanded",
@@ -170,14 +170,13 @@ def main() -> None:
         compact = compact_date(run_date_text)
         toolbar_candidate_path = _active_candidate_file(compact)
         toolbar_frame = _cached_candidate_frame(toolbar_candidate_path)
-        selected_count = _selected_count(toolbar_frame)
         job_running = _has_running_job()
 
         with window_col:
             st.markdown("**收集范围**")
             st.caption(collection_window_label(run_date_text))
         with selected_col:
-            st.metric("今日已选择", f"{selected_count} 条")
+            _selected_count_metric(toolbar_candidate_path)
 
         collect_col, save_col, word_col, folder_col = st.columns([1.2, 1, 1.4, 1])
         with collect_col:
@@ -195,16 +194,28 @@ def main() -> None:
                 width="stretch",
                 disabled=toolbar_frame is None,
             ):
-                reviewed_path = _save_reviewed_candidates(toolbar_frame, run_date_text)
+                latest_frame = _cached_candidate_frame(toolbar_candidate_path)
+                if latest_frame is None:
+                    st.warning("还没有可保存的候选表。")
+                    st.stop()
+                reviewed_path = _save_reviewed_candidates(latest_frame, run_date_text)
                 st.success(f"已保存：{reviewed_path.name}")
         with word_col:
             if st.button(
                 "生成并追加总 Word",
                 type="primary",
                 width="stretch",
-                disabled=job_running or selected_count == 0,
+                disabled=job_running or toolbar_frame is None,
             ):
-                reviewed_path = _save_reviewed_candidates(toolbar_frame, run_date_text)
+                latest_frame = _cached_candidate_frame(toolbar_candidate_path)
+                if latest_frame is None:
+                    st.warning("还没有可写入 Word 的候选表。")
+                    st.stop()
+                latest_selected_count = _selected_count(latest_frame)
+                if latest_selected_count == 0:
+                    st.warning("请先至少勾选一条候选新闻。")
+                    st.stop()
+                reviewed_path = _save_reviewed_candidates(latest_frame, run_date_text)
                 settings = _load_user_settings()
                 _start_word_job(
                     run_date_text,
@@ -243,17 +254,8 @@ def main() -> None:
         for _, row in frame.iterrows()
         if row.get("raw_text", "")
     }
-    edited = _candidate_editor(frame, candidate_path)
-    _cache_candidate_frame(candidate_path, edited)
-
-    col_cumulative, col_folder = st.columns([1, 3])
-    with col_cumulative:
-        if st.button("重建累计 Word", width="stretch", disabled=_has_running_job()):
-            _export_cumulative(run_date_text, loading_area)
-    with col_folder:
-        st.caption("勾选会自动保留在当前页面状态；需要写入文件时，使用顶部“保存选择”。")
-
-    _preview_selected(edited)
+    _cache_candidate_frame(candidate_path, frame)
+    _candidate_workspace_fragment(str(candidate_path), run_date_text)
 
 
 def _inject_app_styles() -> None:
@@ -298,7 +300,7 @@ def _render_app_header() -> None:
     with icon_col:
         st.image(str(APP_ICON_PATH), width=72)
     with title_col:
-        st.title("AutoHeadlines")
+        st.title("XAutoHeadlines")
         st.caption("科技要闻候选审核、自动归纳与统计工作台")
 
 
@@ -1016,6 +1018,19 @@ def _acceptance_marker_panel() -> None:
         return
 
     frame = _acceptance_entries_frame(entries)
+    _cache_acceptance_marker_frame(master_path, frame)
+    _acceptance_marker_editor_fragment(str(master_path))
+
+
+@st.fragment
+def _acceptance_marker_editor_fragment(master_path_text: str) -> None:
+    master_path = Path(master_path_text)
+    frame = _cached_acceptance_marker_frame(master_path)
+    if frame is None:
+        st.warning("被采纳标记表格状态已过期，请关闭后重新打开。")
+        return
+    editor_key = _acceptance_marker_editor_key(master_path)
+    row_keys = _acceptance_marker_row_keys(frame)
     edited = st.data_editor(
         frame,
         hide_index=True,
@@ -1031,8 +1046,11 @@ def _acceptance_marker_panel() -> None:
             "url": st.column_config.LinkColumn("URL", width="large"),
         },
         disabled=["date", "title", "status", "url"],
-        key=f"acceptance_marker_editor_{master_path}",
+        key=editor_key,
+        on_change=_sync_acceptance_marker_state,
+        args=(str(master_path), row_keys, editor_key),
     )
+    _cache_acceptance_marker_frame(master_path, edited)
     st.caption("已标黄的标题会预先勾选。保存后，未勾选的标题会取消黄色荧光笔。")
 
     selected_count = int(
@@ -1056,8 +1074,10 @@ def _acceptance_marker_panel() -> None:
             st.write(f"总 Word：{result.master_path}")
             if result.backup_path:
                 st.write(f"备份：{result.backup_path}")
+            _clear_acceptance_marker_frame(master_path)
     with col_close:
         if st.button("关闭表单", width="stretch"):
+            _clear_acceptance_marker_frame(master_path)
             _go_to_workbench()
             st.rerun()
     st.caption(f"当前勾选：{selected_count} 条。")
@@ -1094,6 +1114,74 @@ def _acceptance_entries_frame(entries) -> pd.DataFrame:
         )
         last_date = entry.date
     return pd.DataFrame(rows).fillna("")
+
+
+def _acceptance_marker_editor_key(master_path: Path) -> str:
+    return f"acceptance_marker_editor::{master_path}"
+
+
+def _acceptance_marker_cache_key(master_path: Path) -> str:
+    return f"acceptance_marker_frame::{master_path}"
+
+
+def _cached_acceptance_marker_frame(master_path: Path) -> pd.DataFrame | None:
+    cached = st.session_state.get(_acceptance_marker_cache_key(master_path))
+    return cached.copy() if isinstance(cached, pd.DataFrame) else None
+
+
+def _cache_acceptance_marker_frame(master_path: Path, frame: pd.DataFrame) -> None:
+    st.session_state[_acceptance_marker_cache_key(master_path)] = frame.copy()
+
+
+def _clear_acceptance_marker_frame(master_path: Path) -> None:
+    st.session_state.pop(_acceptance_marker_cache_key(master_path), None)
+
+
+def _acceptance_marker_row_keys(frame: pd.DataFrame) -> list[str]:
+    if "marker_id" not in frame.columns:
+        return []
+    return [str(value).strip() for value in frame["marker_id"].tolist()]
+
+
+def _sync_acceptance_marker_state(
+    master_path_text: str,
+    visible_marker_ids: list[str],
+    editor_key: str,
+) -> None:
+    master_path = Path(master_path_text)
+    frame = _cached_acceptance_marker_frame(master_path)
+    if frame is None:
+        return
+    editor_state = st.session_state.get(editor_key, {})
+    edited = _apply_acceptance_marker_changes(frame, visible_marker_ids, editor_state)
+    _cache_acceptance_marker_frame(master_path, edited)
+
+
+def _apply_acceptance_marker_changes(
+    original: pd.DataFrame,
+    visible_marker_ids: list[str],
+    editor_state: Any,
+) -> pd.DataFrame:
+    output = original.copy()
+    if "marker_id" not in output.columns or not isinstance(editor_state, dict):
+        return output
+    edited_rows = editor_state.get("edited_rows", {})
+    if not isinstance(edited_rows, dict):
+        return output
+    for raw_position, changes in edited_rows.items():
+        if not isinstance(changes, dict):
+            continue
+        try:
+            marker_id = visible_marker_ids[int(raw_position)]
+        except (TypeError, ValueError, IndexError):
+            continue
+        if not marker_id:
+            continue
+        mask = output["marker_id"].astype(str) == marker_id
+        for column, value in changes.items():
+            if column in output.columns:
+                output.loc[mask, column] = value
+    return output
 
 
 def _save_daily_word_from_settings(settings: dict[str, Any]) -> bool:
@@ -2223,7 +2311,7 @@ def _candidate_pool_panel() -> None:
 def _configuration_assistant_panel() -> None:
     st.subheader("AI 配置助手")
     st.caption(
-        "与当前选择的模型对话。模型可以推荐科技信息源；AutoHeadlines 会实际诊断网站后再允许启用。"
+        "与当前选择的模型对话。模型可以推荐科技信息源；XAutoHeadlines 会实际诊断网站后再允许启用。"
     )
     st.info(
         "模型本身没有实时联网验证能力。公开 HTML/RSS 通常可以自动诊断；登录、付费墙、"
@@ -2587,6 +2675,12 @@ def _active_candidate_file(compact: str) -> Path | None:
     )
 
 
+@st.fragment(run_every="1s")
+def _selected_count_metric(path: Path | None) -> None:
+    frame = _cached_candidate_frame(path)
+    st.metric("今日已选择", f"{_selected_count(frame)} 条")
+
+
 def _cached_candidate_frame(path: Path | None) -> pd.DataFrame | None:
     if path is None:
         return None
@@ -2602,6 +2696,32 @@ def _cached_candidate_frame(path: Path | None) -> pd.DataFrame | None:
 def _cache_candidate_frame(path: Path, frame: pd.DataFrame) -> None:
     st.session_state["candidate_edited_path"] = str(path)
     st.session_state["candidate_edited_frame"] = frame.copy()
+
+
+@st.fragment
+def _candidate_workspace_fragment(candidate_path_text: str, run_date_text: str) -> None:
+    candidate_path = Path(candidate_path_text)
+    frame = _cached_candidate_frame(candidate_path)
+    if frame is None:
+        st.warning("候选表状态已过期，请重新选择候选表版本。")
+        return
+    st.session_state["candidate_raw_text_map"] = {
+        str(row.get("candidate_id", "")): str(row.get("raw_text", ""))
+        for _, row in frame.iterrows()
+        if row.get("raw_text", "")
+    }
+    edited = _candidate_editor(frame, candidate_path)
+    _cache_candidate_frame(candidate_path, edited)
+
+    col_cumulative, col_folder = st.columns([1, 3])
+    cumulative_loading_area = st.empty()
+    with col_cumulative:
+        if st.button("重建累计 Word", width="stretch", disabled=_has_running_job()):
+            _export_cumulative(run_date_text, cumulative_loading_area)
+    with col_folder:
+        st.caption("勾选会自动保留在当前页面状态；需要写入文件时，使用顶部“保存选择”。")
+
+    _preview_selected(edited)
 
 
 def _selected_count(frame: pd.DataFrame | None) -> int:

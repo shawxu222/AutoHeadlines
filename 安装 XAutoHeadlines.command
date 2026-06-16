@@ -2,7 +2,7 @@
 set -euo pipefail
 
 PROJECT_DIR="${0:A:h}"
-DRY_RUN="${AUTOHEADLINES_INSTALL_DRY_RUN:-0}"
+DRY_RUN="${XAUTOHEADLINES_INSTALL_DRY_RUN:-${AUTOHEADLINES_INSTALL_DRY_RUN:-0}}"
 
 cd "$PROJECT_DIR"
 
@@ -42,7 +42,7 @@ find_python() {
   return 1
 }
 
-say "Preparing AutoHeadlines"
+say "Preparing XAutoHeadlines"
 MEMORY_GB="$(( $(sysctl -n hw.memsize 2>/dev/null || printf '0') / 1024 / 1024 / 1024 ))"
 FREE_GB="$(( $(df -Pk "$HOME" | awk 'NR == 2 {print $4}') / 1024 / 1024 ))"
 printf "Detected memory: %s GB; free disk space: %s GB.\n" "$MEMORY_GB" "$FREE_GB"
@@ -77,10 +77,10 @@ run .venv/bin/python -m src.main init
 say "Checking the installation"
 run .venv/bin/python -m src.main doctor
 
-printf "\nAutoHeadlines is ready.\n"
-printf "Open '启动 AutoHeadlines.command' to start the application.\n"
+printf "\nXAutoHeadlines is ready.\n"
+printf "Open '启动 XAutoHeadlines.command' to start the application.\n"
 printf "\nAI model setup is optional and is not downloaded by this installer.\n"
-printf "- OpenAI API: configure it in AutoHeadlines after startup.\n"
+printf "- OpenAI API: configure it in XAutoHeadlines after startup.\n"
 printf "- Local Ollama: open '安装本地模型（可选）.command'.\n"
 printf "- Ollama download: https://ollama.com/download/mac\n"
 printf "- Recommended qwen3:8b model: https://ollama.com/library/qwen3:8b\n"

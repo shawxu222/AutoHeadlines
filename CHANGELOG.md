@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 0.1.1 - 2026-06-16
+
 - Added an in-app AI configuration assistant using the currently selected model.
 - Added structured source recommendations with confirmation before configuration changes.
 - Added public-site diagnostics for reachability, feeds, candidate links, and sample extraction.
@@ -10,6 +12,17 @@
 - Added a macOS user-download package, first-run installer, and tagged-release workflow.
 - Added separate, explicit optional setup for official Ollama and user-selected
   local models; the main installer no longer downloads model weights.
+- Renamed the product and macOS user package to XAutoHeadlines.
+- Added the Korea MSIT official English source for policy, strategy, AI,
+  quantum, ICT, semiconductor, and R&D announcements.
+- Fixed candidate-pool and acceptance-marker checkbox interactions so they
+  update locally without jumping the workbench back to the top.
+- Normalized government `jsessionid` URL fragments during discovery and
+  reported-history filtering to prevent duplicate official-source items.
+- Added `xautoheadlines` as the primary CLI command while keeping
+  `autoheadlines` as a compatibility alias.
+- Added `XAUTOHEADLINES_*` environment variables while keeping
+  `AUTOHEADLINES_*` compatibility fallbacks for existing local installs.
 
 ## 0.1.0 - 2026-06-12
 

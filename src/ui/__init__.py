@@ -1,1 +1,1 @@
-"""Mouse-driven local review interface for AutoHeadlines."""
+"""Mouse-driven local review interface for XAutoHeadlines."""

@@ -1,6 +1,6 @@
 # Sources
 
-AutoHeadlines supports these source types:
+XAutoHeadlines supports these source types:
 
 - `rss`: preferred for stable public feeds
 - `html`, `official`, `media`: heuristic public-page discovery and extraction
@@ -86,7 +86,7 @@ sections or URL structures.
 
 A dedicated adapter is still required when a site depends on login sessions,
 paywalls, JavaScript-only rendering, CAPTCHA, aggressive bot protection, or
-unusual pagination/API behavior. AutoHeadlines reports these as adapter work
+unusual pagination/API behavior. XAutoHeadlines reports these as adapter work
 instead of pretending that a generic scraper succeeded.
 
 ## Login-backed Sources

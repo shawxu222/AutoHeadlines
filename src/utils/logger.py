@@ -9,12 +9,16 @@ from dotenv import load_dotenv
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 load_dotenv(PROJECT_ROOT / ".env")
-APP_HOME = Path(os.getenv("AUTOHEADLINES_HOME", PROJECT_ROOT)).expanduser()
+APP_HOME = Path(
+    os.getenv("XAUTOHEADLINES_HOME")
+    or os.getenv("AUTOHEADLINES_HOME")
+    or PROJECT_ROOT
+).expanduser()
 LOG_DIR = APP_HOME / "logs"
 LOG_FILE = LOG_DIR / "app.log"
 
 
-def setup_logger(name: str = "AutoHeadlines") -> logging.Logger:
+def setup_logger(name: str = "XAutoHeadlines") -> logging.Logger:
     """Configure a shared file and console logger."""
     LOG_DIR.mkdir(parents=True, exist_ok=True)
     level_name = os.getenv("LOG_LEVEL", "INFO").upper()

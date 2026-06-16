@@ -1,25 +1,25 @@
-# Install AutoHeadlines On macOS
+# Install XAutoHeadlines On macOS
 
 ## User Download
 
-Download `AutoHeadlines-macOS-VERSION.zip` from the GitHub Release page, extract
+Download `XAutoHeadlines-macOS-VERSION.zip` from the GitHub Release page, extract
 it, and open:
 
 ```text
-安装 AutoHeadlines.command
+安装 XAutoHeadlines.command
 ```
 
 The installer:
 
 1. Finds Python 3.10 or newer, or installs Python with Homebrew when available.
-2. Creates a private `.venv` inside the AutoHeadlines folder.
-3. Installs AutoHeadlines and the Playwright Chromium browser.
-4. Runs `autoheadlines init` and `autoheadlines doctor`.
+2. Creates a private `.venv` inside the XAutoHeadlines folder.
+3. Installs XAutoHeadlines and the Playwright Chromium browser.
+4. Runs `xautoheadlines init` and `xautoheadlines doctor`.
 
 The main installer does not download Ollama or model weights. After installation,
 users can choose:
 
-- OpenAI API: configure an API key in AutoHeadlines model settings.
+- OpenAI API: configure an API key in XAutoHeadlines model settings.
 - Local model: install [Ollama for macOS](https://ollama.com/download/mac), then
   choose a model from the [Ollama library](https://ollama.com/library).
 
@@ -31,7 +31,7 @@ suited to machines with at least 16 GB of memory.
 After installation, open:
 
 ```text
-启动 AutoHeadlines.command
+启动 XAutoHeadlines.command
 ```
 
 ## macOS Security Prompt
@@ -48,5 +48,5 @@ GitHub Release assets must each be under 2 GiB, while `qwen3:8b` is roughly
 the official distribution path, lets Ollama manage updates and local storage,
 and avoids forcing a local model on OpenAI API users.
 
-The release package contains AutoHeadlines only. See
+The release package contains XAutoHeadlines only. See
 [`THIRD_PARTY_NOTICES.md`](../THIRD_PARTY_NOTICES.md).

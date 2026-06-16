@@ -1,6 +1,6 @@
 id: japan-korea-scitech-zh
 name: Japan and Korea science and technology digest (Chinese)
-description: Built-in profile that preserves the original AutoHeadlines workflow.
+description: Built-in profile that preserves the original XAutoHeadlines workflow.
 
 sources_file: config/sources.yaml
 keywords_file: config/keywords.yaml

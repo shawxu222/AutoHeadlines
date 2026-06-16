@@ -62,7 +62,7 @@ logger = get_logger(__name__)
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
-        description="AutoHeadlines：每日科技要闻收集、筛选、编译与 Word 排版 MVP"
+        description="XAutoHeadlines：每日科技要闻收集、筛选、编译与 Word 排版 MVP"
     )
     subparsers = parser.add_subparsers(dest="command", required=True)
 
@@ -452,7 +452,7 @@ def command_init() -> int:
         env_path.write_text(example_path.read_text(encoding="utf-8"), encoding="utf-8")
         print(f"已创建环境配置：{env_path}")
     print(f"数据目录已准备：{DATA_ROOT}")
-    print("下一步：编辑 .env，配置 OpenAI 或 Ollama，然后运行 autoheadlines doctor。")
+    print("下一步：编辑 .env，配置 OpenAI 或 Ollama，然后运行 xautoheadlines doctor。")
     return 0
 
 

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import re
 from datetime import date, datetime
 from pathlib import Path
 from typing import Any, Iterable
@@ -77,7 +78,7 @@ def normalize_reported_url(value: Any) -> str:
         for key, val in parse_qsl(parsed.query, keep_blank_values=True)
         if not _is_tracking_query_key(key)
     ]
-    path = parsed.path or "/"
+    path = re.sub(r";jsessionid=[^/?#]+", "", parsed.path or "/", flags=re.I)
     if path != "/":
         path = path.rstrip("/")
     return urlunsplit(

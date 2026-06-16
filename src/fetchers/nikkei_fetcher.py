@@ -24,7 +24,9 @@ from src.utils.logger import get_logger
 
 logger = get_logger(__name__)
 NIKKEI_PROFILE_DIR = Path(
-    os.getenv("AUTOHEADLINES_BROWSER_PROFILE_DIR", PROJECT_ROOT / ".browser_profiles")
+    os.getenv("XAUTOHEADLINES_BROWSER_PROFILE_DIR")
+    or os.getenv("AUTOHEADLINES_BROWSER_PROFILE_DIR")
+    or PROJECT_ROOT / ".browser_profiles"
 ).expanduser() / "nikkei"
 NIKKEI_HOME = "https://www.nikkei.com/"
 NIKKEI_DISCOVERY_URLS = [

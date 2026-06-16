@@ -1,1 +1,1 @@
-"""Release and maintenance scripts for AutoHeadlines."""
+"""Release and maintenance scripts for XAutoHeadlines."""

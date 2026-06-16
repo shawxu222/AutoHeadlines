@@ -5,7 +5,7 @@ from pathlib import Path
 import pytest
 
 from src import config_loader
-from src.config_loader import load_profile
+from src.config_loader import load_profile, load_sources
 from src.llm.digest_generator import generate_digests
 
 
@@ -17,6 +17,16 @@ def test_builtin_profile_is_release_safe() -> None:
     assert profile.keywords_file.exists()
     assert profile.prompt_file.exists()
     assert "Private Organization" not in profile.digest_title_template
+
+
+def test_builtin_sources_include_korea_official_policy_source() -> None:
+    sources = {source.name: source for source in load_sources()}
+    source = sources["MSIT Korea Official"]
+
+    assert source.source_type == "official"
+    assert source.country_region == "Korea"
+    assert source.priority == 5
+    assert any("bbs/view" in pattern for pattern in source.include_url_patterns)
 
 
 def test_custom_profile_can_change_output_and_window(tmp_path: Path) -> None:
@@ -54,6 +64,7 @@ def test_summary_generation_requires_a_configured_model(monkeypatch) -> None:
         is_configured = False
         generation_mode = "mock"
 
+    monkeypatch.delenv("XAUTOHEADLINES_ALLOW_DEMO_SUMMARIES", raising=False)
     monkeypatch.delenv("AUTOHEADLINES_ALLOW_DEMO_SUMMARIES", raising=False)
 
     with pytest.raises(RuntimeError, match="No LLM provider is configured"):
@@ -68,6 +79,7 @@ def test_model_failure_does_not_silently_create_a_demo_summary(monkeypatch) -> N
         def generate_json(self, system_prompt, user_payload):  # noqa: ANN001
             raise RuntimeError("provider unavailable")
 
+    monkeypatch.delenv("XAUTOHEADLINES_ALLOW_DEMO_SUMMARIES", raising=False)
     monkeypatch.delenv("AUTOHEADLINES_ALLOW_DEMO_SUMMARIES", raising=False)
     report: list[dict[str, object]] = []
 

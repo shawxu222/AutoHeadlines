@@ -2,14 +2,14 @@
 PROJECT_DIR="${0:A:h}"
 
 cd "$PROJECT_DIR" || {
-  echo "无法打开 AutoHeadlines 项目目录：$PROJECT_DIR"
-  read "?按 Enter 退出..."
+  echo "Cannot open XAutoHeadlines project directory: $PROJECT_DIR"
+  read "?Press Enter to exit..."
   exit 1
 }
 
 if [ ! -x ".venv/bin/python" ]; then
-  echo "没有找到运行环境。请先双击“安装 AutoHeadlines.command”。"
-  read "?按 Enter 退出..."
+  echo "Virtual environment not found. Open '安装 XAutoHeadlines.command' first."
+  read "?Press Enter to exit..."
   exit 1
 fi
 
@@ -24,4 +24,4 @@ fi
 
 ".venv/bin/python" -m src.main review-app
 
-read "?AutoHeadlines 已退出，按 Enter 关闭窗口..."
+read "?XAutoHeadlines has stopped. Press Enter to close..."

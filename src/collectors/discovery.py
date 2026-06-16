@@ -63,6 +63,7 @@ POSITIVE_LINK_HINTS = [
     "biz.chosun.com/science-chosun",
     "biz.chosun.com/it-science",
     "yna.co.kr/industry",
+    "msit.go.kr/eng/bbs/view.do",
     "mext.go.jp/b_menu/houdou",
     "mext.go.jp/b_menu/boshu",
     "meti.go.jp/press",
@@ -423,6 +424,7 @@ def _select_anchors(soup: BeautifulSoup, selectors: list[str]) -> list[Any]:
 
 
 def _discovered_row(source: NewsSource, url: str, title: str) -> dict[str, Any]:
+    url = _strip_url_session_id(url)
     published_date = _date_from_url(url)
     return {
         "source": source.name,
@@ -439,6 +441,10 @@ def _discovered_row(source: NewsSource, url: str, title: str) -> dict[str, Any]:
         "rate_limit_seconds": source.rate_limit_seconds,
         "max_articles_per_run": source.max_articles_per_run,
     }
+
+
+def _strip_url_session_id(url: str) -> str:
+    return re.sub(r";jsessionid=[^/?#]+", "", url, flags=re.I)
 
 
 def _date_from_url(url: str) -> str:

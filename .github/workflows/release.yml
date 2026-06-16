@@ -44,9 +44,9 @@ jobs:
 
       - uses: actions/upload-artifact@v4
         with:
-          name: AutoHeadlines-macOS-${{ env.VERSION }}
+          name: XAutoHeadlines-macOS-${{ env.VERSION }}
           path: |
-            dist/AutoHeadlines-macOS-${{ env.VERSION }}.zip
+            dist/XAutoHeadlines-macOS-${{ env.VERSION }}.zip
             dist/SHA256SUMS.txt
 
       - name: Publish GitHub Release
@@ -55,7 +55,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           gh release create "$GITHUB_REF_NAME" \
-            "dist/AutoHeadlines-macOS-${VERSION}.zip" \
+            "dist/XAutoHeadlines-macOS-${VERSION}.zip" \
             "dist/SHA256SUMS.txt" \
             --notes-file "docs/RELEASE_NOTES.md" \
-            --title "AutoHeadlines ${GITHUB_REF_NAME}"
+            --title "XAutoHeadlines ${GITHUB_REF_NAME}"

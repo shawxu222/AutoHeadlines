@@ -14,9 +14,9 @@ DIST_DIR = PROJECT_ROOT / "dist"
 RELEASE_DIRECTORIES = ["assets", "config", "docs", "prompts", "src"]
 RELEASE_FILES = [
     ".env.example",
-    "AutoHeadlines.command",
-    "启动 AutoHeadlines.command",
-    "安装 AutoHeadlines.command",
+    "XAutoHeadlines.command",
+    "启动 XAutoHeadlines.command",
+    "安装 XAutoHeadlines.command",
     "安装本地模型（可选）.command",
     "CHANGELOG.md",
     "LICENSE",
@@ -28,20 +28,20 @@ RELEASE_FILES = [
 ]
 DATA_DIRECTORIES = ["input", "output", "processed", "raw", "reference", "settings"]
 EXECUTABLE_FILES = {
-    "AutoHeadlines.command",
-    "启动 AutoHeadlines.command",
-    "安装 AutoHeadlines.command",
+    "XAutoHeadlines.command",
+    "启动 XAutoHeadlines.command",
+    "安装 XAutoHeadlines.command",
     "安装本地模型（可选）.command",
 }
 
 
 def build_release(version: str) -> Path:
     normalized_version = version.removeprefix("v")
-    package_name = f"AutoHeadlines-macOS-{normalized_version}"
+    package_name = f"XAutoHeadlines-macOS-{normalized_version}"
     DIST_DIR.mkdir(parents=True, exist_ok=True)
     archive_path = DIST_DIR / f"{package_name}.zip"
 
-    with tempfile.TemporaryDirectory(prefix="autoheadlines-release-") as temp:
+    with tempfile.TemporaryDirectory(prefix="xautoheadlines-release-") as temp:
         package_root = Path(temp) / package_name
         package_root.mkdir()
         for directory in RELEASE_DIRECTORIES:
@@ -90,7 +90,7 @@ def _write_zip(package_root: Path, archive_path: Path) -> None:
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Build the macOS AutoHeadlines release.")
+    parser = argparse.ArgumentParser(description="Build the macOS XAutoHeadlines release.")
     parser.add_argument("--version", required=True)
     args = parser.parse_args()
     archive = build_release(args.version)

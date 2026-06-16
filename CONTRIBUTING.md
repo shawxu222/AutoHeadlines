@@ -1,6 +1,6 @@
 # Contributing
 
-AutoHeadlines focuses specifically on science and technology news workflows.
+XAutoHeadlines focuses specifically on science and technology news workflows.
 Changes should preserve the human review step, avoid paywall bypass behavior,
 and keep private runtime data outside Git.
 

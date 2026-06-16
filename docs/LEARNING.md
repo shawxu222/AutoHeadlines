@@ -1,6 +1,6 @@
 # Historical Digest Learning
 
-Historical accepted digests are a core AutoHeadlines input. They improve the
+Historical accepted digests are a core XAutoHeadlines input. They improve the
 daily workflow without being part of the public repository.
 
 The learning pipeline:
@@ -22,7 +22,7 @@ Configure a private source in the Git-ignored file
 }
 ```
 
-Run `autoheadlines ingest-reference` after meaningful updates, or use
+Run `xautoheadlines ingest-reference` after meaningful updates, or use
 “重新读取已放好的学习资料” in the interface.
 
 Do not commit the source Word, generated reference JSON, accepted-news

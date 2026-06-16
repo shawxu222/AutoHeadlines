@@ -4,6 +4,7 @@ import pandas as pd
 
 from src.ui.review_app import (
     APP_ICON_PATH,
+    _apply_acceptance_marker_changes,
     _apply_candidate_editor_changes,
     _filter_excluded_candidate_rows,
     _filter_candidate_editor_frame,
@@ -82,6 +83,37 @@ def test_candidate_editor_change_is_applied_before_next_rerun() -> None:
 
     assert edited.loc[edited["candidate_id"] == "amed-drug", "selected"].item() is True
     assert _selected_count(edited) == 1
+
+
+def test_acceptance_marker_change_is_applied_before_fragment_rerun() -> None:
+    original = pd.DataFrame(
+        [
+            {
+                "marker_id": "marker-1",
+                "accepted": False,
+                "date": "2026-06-16",
+                "title": "1.重要科技政策",
+            },
+            {
+                "marker_id": "",
+                "accepted": False,
+                "date": "",
+                "title": "",
+            },
+        ]
+    )
+
+    edited = _apply_acceptance_marker_changes(
+        original,
+        ["marker-1", ""],
+        {"edited_rows": {0: {"accepted": True}, 1: {"accepted": True}}},
+    )
+
+    assert (
+        bool(edited.loc[edited["marker_id"] == "marker-1", "accepted"].item())
+        is True
+    )
+    assert bool(edited.loc[edited["marker_id"] == "", "accepted"].item()) is False
 
 
 def test_existing_candidate_frame_hides_excluded_sports_rows() -> None:

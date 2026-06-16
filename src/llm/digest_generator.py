@@ -66,7 +66,12 @@ def generate_digests(
     profile = load_profile()
     prompt = profile.prompt_file.read_text(encoding="utf-8")
     client = client or OpenAIClient()
-    allow_demo = os.getenv("AUTOHEADLINES_ALLOW_DEMO_SUMMARIES", "").lower() in {
+    allow_demo_value = (
+        os.getenv("XAUTOHEADLINES_ALLOW_DEMO_SUMMARIES")
+        or os.getenv("AUTOHEADLINES_ALLOW_DEMO_SUMMARIES")
+        or ""
+    )
+    allow_demo = allow_demo_value.lower() in {
         "1",
         "true",
         "yes",
@@ -75,7 +80,7 @@ def generate_digests(
         raise RuntimeError(
             "No LLM provider is configured. Configure OpenAI or Ollama before "
             "generating a release-quality digest. To explicitly test formatting "
-            "with demo summaries, set AUTOHEADLINES_ALLOW_DEMO_SUMMARIES=true."
+            "with demo summaries, set XAUTOHEADLINES_ALLOW_DEMO_SUMMARIES=true."
         )
     digests: list[dict[str, Any]] = []
 

@@ -1,6 +1,6 @@
 id: example-global-scitech-en
 name: Global science and technology digest (English example)
-description: Example profile showing how to adapt AutoHeadlines for another region and output language.
+description: Example profile showing how to adapt XAutoHeadlines for another region and output language.
 
 sources_file: config/examples/sources.global.example.yaml
 keywords_file: config/keywords.yaml

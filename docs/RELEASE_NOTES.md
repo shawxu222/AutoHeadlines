@@ -1,15 +1,26 @@
 ## User Download
 
-Download the `AutoHeadlines-macOS-x.y.z.zip` asset, extract it, then open:
+### What Changed In 0.1.1
 
-`安装 AutoHeadlines.command`
+- The app, macOS launchers, and user download package are now named
+  XAutoHeadlines.
+- Candidate-pool and acceptance-marker checkbox edits no longer jump the page
+  back to the top.
+- A new official Korea MSIT source is included for science, technology, AI,
+  quantum, semiconductor, ICT, policy, strategy, and R&D announcements.
+- `xautoheadlines` is the primary CLI command. `autoheadlines` remains available
+  as a compatibility alias.
 
-The main installer installs AutoHeadlines and its browser dependencies only. It
+Download the `XAutoHeadlines-macOS-x.y.z.zip` asset, extract it, then open:
+
+`安装 XAutoHeadlines.command`
+
+The main installer installs XAutoHeadlines and its browser dependencies only. It
 does not automatically install an AI provider or download model weights.
 
 Choose either model option after installation:
 
-- **OpenAI API:** start AutoHeadlines and configure an API key in model settings.
+- **OpenAI API:** start XAutoHeadlines and configure an API key in model settings.
 - **Local Ollama:** install [Ollama for macOS](https://ollama.com/download/mac),
   then choose a model from the [Ollama model library](https://ollama.com/library).
   The recommended starting model is

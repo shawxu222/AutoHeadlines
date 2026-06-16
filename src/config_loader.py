@@ -14,7 +14,22 @@ from src.utils.logger import get_logger
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 load_dotenv(PROJECT_ROOT / ".env")
-DATA_ROOT = Path(os.getenv("AUTOHEADLINES_HOME", PROJECT_ROOT)).expanduser() / "data"
+
+
+def _env_value(name: str, legacy_name: str | None = None, default: str = "") -> str:
+    value = os.getenv(name, "").strip()
+    if value:
+        return value
+    if legacy_name:
+        legacy = os.getenv(legacy_name, "").strip()
+        if legacy:
+            return legacy
+    return default
+
+
+DATA_ROOT = Path(
+    _env_value("XAUTOHEADLINES_HOME", "AUTOHEADLINES_HOME", str(PROJECT_ROOT))
+).expanduser() / "data"
 PRIVATE_SETTINGS_PATH = DATA_ROOT / "settings" / "user_settings.json"
 logger = get_logger(__name__)
 DEFAULT_PROFILE = "japan-korea-scitech-zh"
@@ -75,7 +90,9 @@ def _resolve_project_path(value: Any, default: str) -> Path:
 
 
 def active_profile_path() -> Path:
-    configured = os.getenv("AUTOHEADLINES_PROFILE", DEFAULT_PROFILE).strip()
+    configured = _env_value(
+        "XAUTOHEADLINES_PROFILE", "AUTOHEADLINES_PROFILE", DEFAULT_PROFILE
+    )
     path = Path(configured).expanduser()
     if path.suffix.lower() in {".yaml", ".yml"} or path.is_absolute():
         return path if path.is_absolute() else PROJECT_ROOT / path
@@ -86,8 +103,8 @@ def load_profile(path: Path | None = None) -> Profile:
     profile_path = path or active_profile_path()
     if not profile_path.exists():
         raise FileNotFoundError(
-            f"AutoHeadlines profile not found: {profile_path}. "
-            "Set AUTOHEADLINES_PROFILE to a profile name or YAML path."
+            f"XAutoHeadlines profile not found: {profile_path}. "
+            "Set XAUTOHEADLINES_PROFILE to a profile name or YAML path."
         )
     payload = yaml.safe_load(profile_path.read_text(encoding="utf-8")) or {}
     date_window = payload.get("date_window") or {}
@@ -125,14 +142,14 @@ def load_profile(path: Path | None = None) -> Profile:
 
 
 def active_sources_path() -> Path:
-    override = os.getenv("AUTOHEADLINES_SOURCES_FILE", "").strip()
+    override = _env_value("XAUTOHEADLINES_SOURCES_FILE", "AUTOHEADLINES_SOURCES_FILE")
     if override:
         return _resolve_project_path(override, str(load_profile().sources_file))
     return load_profile().sources_file
 
 
 def active_keywords_path() -> Path:
-    override = os.getenv("AUTOHEADLINES_KEYWORDS_FILE", "").strip()
+    override = _env_value("XAUTOHEADLINES_KEYWORDS_FILE", "AUTOHEADLINES_KEYWORDS_FILE")
     if override:
         return _resolve_project_path(override, str(load_profile().keywords_file))
     return load_profile().keywords_file

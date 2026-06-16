@@ -3,13 +3,13 @@ requires = ["setuptools>=68", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "autoheadlines"
-version = "0.1.0"
+name = "xautoheadlines"
+version = "0.1.1"
 description = "Local workbench for collecting, reviewing, summarizing, and analyzing science and technology news."
 readme = "README.md"
 requires-python = ">=3.10"
 license = {text = "MIT"}
-authors = [{name = "AutoHeadlines contributors"}]
+authors = [{name = "XAutoHeadlines contributors"}]
 dependencies = [
   "requests>=2.31.0",
   "beautifulsoup4>=4.12.0",
@@ -29,6 +29,7 @@ dependencies = [
 dev = ["pytest>=7.4.0", "ruff>=0.6.0"]
 
 [project.scripts]
+xautoheadlines = "src.main:main"
 autoheadlines = "src.main:main"
 
 [tool.setuptools.packages.find]

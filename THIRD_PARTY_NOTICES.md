@@ -1,6 +1,6 @@
 # Third-Party Downloads
 
-The AutoHeadlines source code and macOS user package do not redistribute Ollama
+The XAutoHeadlines source code and macOS user package do not redistribute Ollama
 or model weights.
 
 During installation, the user-facing macOS installer can download:
@@ -12,6 +12,6 @@ During installation, the user-facing macOS installer can download:
 - Python packages declared in `pyproject.toml`, each under its own license.
 - Playwright Chromium, used only for authorized login-backed source adapters.
 
-Users may skip or remove these third-party components. AutoHeadlines does not
+Users may skip or remove these third-party components. XAutoHeadlines does not
 grant rights to redistribute third-party software, model weights, or website
 content.

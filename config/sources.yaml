@@ -399,6 +399,38 @@ sources:
   - https://www.cas.go.jp/
   rate_limit_seconds: 2
   max_articles_per_run: 6
+- name: MSIT Korea Official
+  base_url: https://www.msit.go.kr/
+  country_region: Korea
+  language: en
+  section_url: https://www.msit.go.kr/eng/bbs/list.do?mId=4&mPid=2&sCode=eng
+  source_type: official
+  requires_login: false
+  priority: 5
+  enabled: true
+  tags:
+  - Korea
+  - policy
+  - science_policy
+  - national_strategy
+  - R&D
+  - AI
+  - quantum
+  - semiconductor
+  - ICT
+  discovery_urls:
+  - https://www.msit.go.kr/eng/index.do
+  - https://www.msit.go.kr/eng/bbs/list.do?mId=4&mPid=2&sCode=eng
+  - https://www.msit.go.kr/eng/bbs/list.do?mId=3&mPid=2&sCode=eng
+  - https://www.msit.go.kr/eng/bbs/list.do?mId=10&mPid=9&sCode=eng
+  link_selectors:
+  - a[href*="bbs/view.do"]
+  include_url_patterns:
+  - msit\.go\.kr/eng/bbs/view\.do
+  exclude_url_patterns:
+  - /photo/
+  rate_limit_seconds: 2
+  max_articles_per_run: 12
 - name: ChosunBiz Science
   base_url: https://biz.chosun.com/
   country_region: Korea
